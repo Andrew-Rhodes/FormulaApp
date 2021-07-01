@@ -15,6 +15,8 @@ namespace FormulaApp.Logic
         internal List<string> ParenthesesWorkflow(FormulaModel FM)
         {
             // check for nested parentheses
+            //check for adjecent ()()
+            //check for int()
             GetParenthesesContent(FM.FormulaListNoVar);
             FM.FormulaListNoVar.RemoveRange(PM.IndexOfFirstParen, PM.IndexOfLastParen - PM.IndexOfFirstParen + 1);
 
@@ -56,92 +58,99 @@ namespace FormulaApp.Logic
 
         private decimal SolveParenthesesArea(List<string> ParenthesesContent, decimal value)
         {
-            
+
             ParenthesesContent.Remove("(");
             ParenthesesContent.Remove(")");
             decimal valueToReturn = value;
 
-            if (ParenthesesContent.Count == 1)
-            {
-                return valueToReturn;
-            }
+            PEMDAS pemdas = new PEMDAS();
 
-            bool hasMultiply = ParenthesesContent.Contains("*");
-            bool hasDivide = ParenthesesContent.Contains("/");
-            bool hasAddition = ParenthesesContent.Contains("+");
-            bool hasSubtratcion = ParenthesesContent.Contains("-");
+            value = pemdas.SolveWithPemdas(ParenthesesContent, value);
 
-            int multipleIndex = ParenthesesContent.IndexOf("*");
-            int divisionIndex = ParenthesesContent.IndexOf("/");
-            int additionIndex = ParenthesesContent.IndexOf("+");
-            int subtractionIndex = ParenthesesContent.IndexOf("-");
+            return decimal.Parse(ParenthesesContent[0]);
 
-            if (hasMultiply && hasDivide && ParenthesesContent.Count != 1)
-            {
-                if (divisionIndex > multipleIndex)
-                {
-                    if (hasMultiply && ParenthesesContent.Count != 1)
-                    {
-                        DoMath("M", valueToReturn, ParenthesesContent, multipleIndex);
-                    }
-                }
-                else
-                {
-                    if (hasDivide && ParenthesesContent.Count != 1)
-                    {
-                        DoMath("D", valueToReturn, ParenthesesContent, divisionIndex);
-                    }
-                }
-            }
+            //if (ParenthesesContent.Count == 1)
+            //{
+            //    return valueToReturn;
+            //}
 
-            if (hasMultiply && ParenthesesContent.Count != 1)
-            {
-                DoMath("M", valueToReturn, ParenthesesContent, multipleIndex);
-            }
+            //bool hasMultiply = ParenthesesContent.Contains("*");
+            //bool hasDivide = ParenthesesContent.Contains("/");
+            //bool hasAddition = ParenthesesContent.Contains("+");
+            //bool hasSubtratcion = ParenthesesContent.Contains("-");
 
-            if (hasDivide && ParenthesesContent.Count != 1)
-            {
-                DoMath("D", valueToReturn, ParenthesesContent, divisionIndex);
-            }
+            //int multipleIndex = ParenthesesContent.IndexOf("*");
+            //int divisionIndex = ParenthesesContent.IndexOf("/");
+            //int additionIndex = ParenthesesContent.IndexOf("+");
+            //int subtractionIndex = ParenthesesContent.IndexOf("-");
 
-            if (hasAddition && hasSubtratcion && ParenthesesContent.Count != 1)
-            {
-                if (subtractionIndex > additionIndex)
-                {
-                    if (hasAddition && ParenthesesContent.Count != 1)
-                    {
-                        DoMath("A", valueToReturn, ParenthesesContent, additionIndex);
-                    }
-                }
-                else
-                {
-                    if (hasSubtratcion && ParenthesesContent.Count != 1)
-                    {
-                        DoMath("S", valueToReturn, ParenthesesContent, subtractionIndex);
-                    }
-                }
-            }
+            //if (hasMultiply && hasDivide && ParenthesesContent.Count != 1)
+            //{
+            //    if (divisionIndex > multipleIndex)
+            //    {
+            //        if (hasMultiply && ParenthesesContent.Count != 1)
+            //        {
+            //            DoMath("M", valueToReturn, ParenthesesContent, multipleIndex);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (hasDivide && ParenthesesContent.Count != 1)
+            //        {
+            //            DoMath("D", valueToReturn, ParenthesesContent, divisionIndex);
+            //        }
+            //    }
+            //}
 
-            if (hasAddition && ParenthesesContent.Count != 1)
-            {
-                DoMath("A", valueToReturn, ParenthesesContent, additionIndex);
-            }
+            //if (hasMultiply && ParenthesesContent.Count != 1)
+            //{
+            //    DoMath("M", valueToReturn, ParenthesesContent, multipleIndex);
+            //}
 
-            if (hasSubtratcion && ParenthesesContent.Count != 1)
-            {
-                DoMath("S", valueToReturn, ParenthesesContent, subtractionIndex);
-            }
+            //if (hasDivide && ParenthesesContent.Count != 1)
+            //{
+            //    DoMath("D", valueToReturn, ParenthesesContent, divisionIndex);
+            //}
 
-            return valueToReturn;
+            //if (hasAddition && hasSubtratcion && ParenthesesContent.Count != 1)
+            //{
+            //    if (subtractionIndex > additionIndex)
+            //    {
+            //        if (hasAddition && ParenthesesContent.Count != 1)
+            //        {
+            //            DoMath("A", valueToReturn, ParenthesesContent, additionIndex);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (hasSubtratcion && ParenthesesContent.Count != 1)
+            //        {
+            //            DoMath("S", valueToReturn, ParenthesesContent, subtractionIndex);
+            //        }
+            //    }
+            //}
+
+            //if (hasAddition && ParenthesesContent.Count != 1)
+            //{
+            //    DoMath("A", valueToReturn, ParenthesesContent, additionIndex);
+            //}
+
+            //if (hasSubtratcion && ParenthesesContent.Count != 1)
+            //{
+            //    DoMath("S", valueToReturn, ParenthesesContent, subtractionIndex);
+            //}
+
+            //return valueToReturn;
         }
 
         private void DoMath(string typeOfOperation, decimal valueToReturn, List<string> parenthesesContent, int indexOfOperation)
         {
             MathLogic ML = new MathLogic();
+            SolvedModel SM = new SolvedModel();
 
-            valueToReturn = ML.GetMathStuff(parenthesesContent, indexOfOperation, typeOfOperation);
-            parenthesesContent = LM.RemoveOperation(parenthesesContent, valueToReturn);
-            SolveParenthesesArea(parenthesesContent, valueToReturn);
+            //SM = ML.GetMathStuff(parenthesesContent, indexOfOperation, typeOfOperation);
+            //parenthesesContent = LM.RemoveOperation(parenthesesContent, valueToReturn);
+            //SolveParenthesesArea(parenthesesContent, valueToReturn);
         }
     }
 }

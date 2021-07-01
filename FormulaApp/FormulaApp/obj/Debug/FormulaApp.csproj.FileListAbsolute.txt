@@ -4,3 +4,9 @@ c:\users\arhod\documents\visual studio 2017\Projects\FormulaApp\FormulaApp\bin\D
 c:\users\arhod\documents\visual studio 2017\Projects\FormulaApp\FormulaApp\obj\Debug\FormulaApp.csprojResolveAssemblyReference.cache
 c:\users\arhod\documents\visual studio 2017\Projects\FormulaApp\FormulaApp\obj\Debug\FormulaApp.exe
 c:\users\arhod\documents\visual studio 2017\Projects\FormulaApp\FormulaApp\obj\Debug\FormulaApp.pdb
+C:\Users\arhod\Desktop\Content\Personal\Code\FormulaApp\FormulaApp\FormulaApp\bin\Debug\FormulaApp.exe.config
+C:\Users\arhod\Desktop\Content\Personal\Code\FormulaApp\FormulaApp\FormulaApp\bin\Debug\FormulaApp.exe
+C:\Users\arhod\Desktop\Content\Personal\Code\FormulaApp\FormulaApp\FormulaApp\bin\Debug\FormulaApp.pdb
+C:\Users\arhod\Desktop\Content\Personal\Code\FormulaApp\FormulaApp\FormulaApp\obj\Debug\FormulaApp.csprojResolveAssemblyReference.cache
+C:\Users\arhod\Desktop\Content\Personal\Code\FormulaApp\FormulaApp\FormulaApp\obj\Debug\FormulaApp.exe
+C:\Users\arhod\Desktop\Content\Personal\Code\FormulaApp\FormulaApp\FormulaApp\obj\Debug\FormulaApp.pdb

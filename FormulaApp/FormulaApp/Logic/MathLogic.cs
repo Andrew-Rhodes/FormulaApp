@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FormulaApp.Models;
+using FormulaApp.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,20 +10,26 @@ namespace FormulaApp.Logic
 {
     public class MathLogic
     {
-        internal decimal GetMathStuff(List<string> parenthesesContent, int indexOfOperation, string operation)
+        SolvedModel SM = new SolvedModel();
+
+        internal SolvedModel GetMathStuff(List<string> equationToSolve, int indexOfOperation, string operation)
         {
             //add validation
             decimal firstNum;
-            decimal.TryParse(parenthesesContent[indexOfOperation - 1], out firstNum);
+            decimal.TryParse(equationToSolve[indexOfOperation - 1], out firstNum);
 
             decimal secondNum;
-            decimal.TryParse(parenthesesContent[indexOfOperation + 1], out secondNum);
+            decimal.TryParse(equationToSolve[indexOfOperation + 1], out secondNum);
 
-            decimal valueToReturn = OperationSwitch(operation, firstNum, secondNum);
+            SM.ValueReturned = OperationSwitch(operation, firstNum, secondNum);
 
-            parenthesesContent.Insert(indexOfOperation + 2, valueToReturn.ToString());
+            if (SM.DivideByZero == false)
+            {
+                equationToSolve.Insert(indexOfOperation + 2, SM.ValueReturned.ToString());
+                SM.IndexofEquation = indexOfOperation + 2;
+            }
 
-            return valueToReturn;
+            return SM;
         }
 
         private decimal OperationSwitch(string operation, decimal firstNum, decimal secondNum)
@@ -34,7 +42,17 @@ namespace FormulaApp.Logic
                     operationValue = firstNum * secondNum;
                     break;
                 case "D":
-                    operationValue = firstNum / secondNum;
+                    if (secondNum != 0)
+                    {
+                        operationValue = firstNum / secondNum;
+                    }
+                    else
+                    {
+                        Messages MS = new Messages();
+                        MS.AlertDivideByZero();
+                        operationValue = 0;
+                        SM.DivideByZero = true;
+                    }
                     break;
                 case "A":
                     operationValue = firstNum + secondNum;

@@ -12,5 +12,7 @@ namespace FormulaApp.Models
         public List<string> FormulaListSplit { get; set; }
         public List<string> FormulaListNoVar { get; set; }
         public List<string> FormulaListNoParentheses { get; set; }
+        public string ValueToReturn { get; set; }
+
     }
 }

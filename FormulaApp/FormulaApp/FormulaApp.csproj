@@ -45,11 +45,14 @@
     <Compile Include="Logic\ListManipulation.cs" />
     <Compile Include="Logic\MathLogic.cs" />
     <Compile Include="Logic\ParenthesesLogic.cs" />
+    <Compile Include="Logic\PEMDAS.cs" />
     <Compile Include="Models\FormulaModel.cs" />
     <Compile Include="Models\ParenthesesModel.cs" />
+    <Compile Include="Models\SolvedModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Messages.cs" />
+    <Compile Include="Validation\CodeValidation.cs" />
     <Compile Include="WorkFlow\FormulaWorkflow.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -15,13 +15,16 @@ namespace FormulaApp
             Messages message = new Messages();
             FormulaWorkflow workflow = new FormulaWorkflow();
 
+
+
+            //add loop
             message.FormulaStart();
-            workflow.StartWorkflow();
+            string valueToReturn = workflow.StartWorkflow();
+
+            message.DisplayReturnedValue(valueToReturn);
             message.exitFormula();
 
             Console.ReadLine();
-
-
         }
     }
 }
